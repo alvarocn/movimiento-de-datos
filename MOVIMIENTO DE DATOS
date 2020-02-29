@@ -223,7 +223,7 @@ Realiza ahora la operación con Oracle Data Pump.
 
 	C:\app\alvaro\admin\orcl\dpdump>expdp USERID=\"/ as sysdba\" FULL=Y DIRECTORY=DATA_PUMP_DIR COMPRESSION=ALL DUMPFILE=exp_p7.dmp
 
-	[]!(https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-17-33.png)
+	![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-17-33.png)
 
 
 	
