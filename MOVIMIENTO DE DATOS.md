@@ -204,7 +204,7 @@ Realiza ahora la operación con Oracle Data Pump.
 
 
 	C:\app\alvaro\admin\orcl\dpdump>
-
+|[](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-43-54.png)
 
 
 	- A continuación hemos optado por la opcion de compresion.
@@ -223,22 +223,52 @@ Realiza ahora la operación con Oracle Data Pump.
 
 	C:\app\alvaro\admin\orcl\dpdump>expdp USERID=\"/ as sysdba\" FULL=Y DIRECTORY=DATA_PUMP_DIR COMPRESSION=ALL DUMPFILE=exp_p7.dmp
 
-	![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-17-33.png)
+	
 
 ![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-17-33.png)
 
-	
-
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-18-55.png)
 
 
 
 
 4. Intenta realizar operaciones similares de importación y exportación con una herramienta gráfica de administración de Postgres, documentando el proceso.
 
+	Usaremos phpPgAdmin, es un gestor web de bases de datos PostgreSQL. Desde el podremos administrar nuestras base de datos, 	esquemas, tablas, vistas... etc. Antes debemos de realizar unas configuraciones anteriormente realizadas en otras tareas para 	poder acceder.
+	
+	
+	Se nos abrira una nueva ventana y veremos nuestro panel phpPgAdmin.
+	Exportar
+
+	Para exportar nuestra base de datos, podremos hacer click en el icono "Exportar".
+	
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2002-07-56.png)
+
+	Se nos abrirá una ventana para determinar el formato  y las opciones que queremos exportar de nuestra base de datos.
+
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2002-08-05.png)
+
+	LO recomendable sería seleccionar para exportar: "Estructura y Datos", Formato: "SQL". En las opciones, selecciona "Bajar comprimido con gzip" y hacemos click a exportar .
+
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2002-11-05.png)
+
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2002-11-36.png)
+
+	IMPORTAR
+	Para poder importar una base de datos necesitaremos hacer click en el icono "SQL".
+	
+	Se abrirá un área de texto donde podemos pegar las consultas SQL que queramos ejecutar. Adicionalmente podemos utilizar un 	fichero para importar las consultas a la base de datos. Hacemos click sobre el botón de "seleccionar fichero" que esta bajo el área de texto, seleccionar el fichero desde nuestro ordenador y finalmente pulsar sobre el botón "Ejecutar"
+	
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2002-12-07.png)
 
 
 
+	
 
+	
+	
+
+	
 
 
 
