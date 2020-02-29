@@ -204,7 +204,7 @@ Realiza ahora la operación con Oracle Data Pump.
 
 
 	C:\app\alvaro\admin\orcl\dpdump>
-|[](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-43-54.png)
+![](https://github.com/alvarocn/movimiento-de-datos/blob/master/imagenes/Captura%20de%20pantalla%20de%202020-02-29%2000-43-54.png)
 
 
 	- A continuación hemos optado por la opcion de compresion.
