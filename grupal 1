@@ -1,0 +1,162 @@
+Importad el fichero resultante de la exportación completa de las tablas y los datos de una instancia de ORACLE en otra instancia diferente empleando el comando impdp y explicad qué problemas surgen. Realizad un remapeo de esquemas si es necesario.
+
+
+Para realizar dicha tarea primeramente vamos a crear un usuario en el cual vamos a crear unas tablas, creamos un directorio para la exportación y posteriormente haremos la exportación.
+
+- Creamos un tablespace para el usuario.
+
+
+
+SQL> CREATE USER usuario1 IDENTIFIED BY usuario1 ;
+SQL> CREATE USER usuario2 IDENTIFIED BY usuario2 ;
+SQL> grant all privileges to usuario1;
+SQL> grant all privileges to usuario2;
+
+- Creamos las tablas.
+
+create table solistas
+(
+IDinterprete_solista varchar2(10),
+nombre_artistico varchar2(50),
+instrumento varchar2(100),
+constraint pk_solistas primary key (IDinterprete_solista),
+constraint solistas_interpretes foreign key (IDinterprete_solista) references interpretes(id_interprete));
+
+
+
+insert into solistas values ('124223','RUBEN FERNANDEZ','flauta');
+insert into solistas values ('123456','MAURICE ANDRE','trompeta');
+insert into solistas values ('1er456','CLAUDIO ARRAU','piano');
+insert into solistas values ('654tgb','BARENBOIM','piano');
+insert into solistas values ('543frtyh','YURI BASHMET','violin');
+insert into solistas values ('12654f','HEINZ HOLLIGER','oboe');
+insert into solistas values ('qazwsxedc','HOROWITZ','piano');
+insert into solistas values ('1mkonji','MENUHIN','violin');
+insert into solistas values ('1234567','PIERRE RAMPAL','flauta');
+insert into solistas values ('123345','OISTRAKH','violin');
+
+
+create table interpretes
+(
+id_interprete varchar2(10),
+nombre_interprete varchar2(50),
+constraint pk_interpretes primary key (id_interprete),
+constraint contar check(length(id_interprete)>='5'));
+
+insert into interpretes values ('123456','MAURICE ANDRE');
+insert into interpretes values ('1er456','CLAUDIO ARRAU');
+insert into interpretes values ('654tgb','DANIEL BARENBOIM');
+insert into interpretes values ('543frtyh','YURI BASHMET');
+insert into interpretes values ('12654f','HEINZ HOLLIGER');
+insert into interpretes values ('qazwsxedc','VLADIMIR HOROWITZ');
+insert into interpretes values ('1mkonji','YEHUDI MENUHIN');
+insert into interpretes values ('1234567','MAURICE ANDRE');
+insert into interpretes values ('123345','DAVID OISTRAKH');
+insert into interpretes values ('123321','ITZHAK PERLMAN');
+insert into interpretes values ('123565','MSTISLAV ROSTROPOVICH');
+insert into interpretes values ('123422','Marc-André Hamelin ');
+insert into interpretes values ('1234777','PIERRE RAMPAL');
+insert into interpretes values ('124223','RUBEN FERNANDEZ');
+insert into interpretes values ('12bgtyhn','Martha Argerich');
+
+
+- Creamos el directorio de exportación.
+
+SQL> create directory direc_expor as 'C:\app\alvaro\admin\orcl\';
+-Damos permiso al usuario sobre el directorio.
+SQL> GRANT READ, WRITE ON DIRECTORY direc_expor TO reco2;
+SQL> GRANT READ, WRITE ON DIRECTORY direc_expor TO reco2;
+
+- Realizamos primeramente la exportación .
+
+
+C:\Windows\system32>expdp usuario1/usuario1 directory=direc_expor dumpfile=grupal11.dmp schemas=usuario1 logfile=grupalejer1.log
+
+Export: Release 11.2.0.1.0 - Production on Dom Mar 1 17:46:28 2020
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Conectado a: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit P
+roduction
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+Iniciando "USUARIO1"."SYS_EXPORT_SCHEMA_01":  usuario1/******** directory=direc_
+expor dumpfile=grupal1Ejer1.dmp schemas=usuario1 logfile=grupalejer1.log
+Estimaci¾n en curso mediante el mÚtodo BLOCKS...
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/TABLE_DATA
+Estimaci¾n total mediante el mÚtodo BLOCKS: 64 KB
+Procesando el tipo de objeto SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/TABLE
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTI
+CS
+Procesando el tipo de objeto SCHEMA_EXPORT/TABLE/COMMENT
+. . "USUARIO1"."INTERPRETES"                    5.843 KB      15 filas exportada
+s
+La tabla maestra "USUARIO1"."SYS_EXPORT_SCHEMA_01" se ha cargado/descargado corr
+ectamente
+******************************************************************************
+El juego de archivos de volcado para USUARIO1.SYS_EXPORT_SCHEMA_01 es:
+  C:\APP\ALVARO\ADMIN\ORCL\GRUPAL1EJER1.DMP
+El trabajo "USUARIO1"."SYS_EXPORT_SCHEMA_01" ha terminado correctamente en 17:47
+:22
+
+
+Importamos el fichero de exportación anteriormente creado en el usuario2 y comprobamos si se a realizado corrextamente.
+
+C:\Users\alvaro>impdp usuario2/usuario2 dumpfile=grupal1Ejer1.dmp  DIRECTORY=dir
+ec_expor logfile=impdp.log
+
+Import: Release 11.2.0.1.0 - Production on Dom Mar 1 18:43:47 2020
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Conectado a: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit P
+roduction
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+ORA-39154: Los objetos de esquemas ajenos se han eliminado de la importaci¾n
+La tabla maestra "USUARIO2"."SYS_IMPORT_FULL_01" se ha cargado/descargado correc
+tamente
+Iniciando "USUARIO2"."SYS_IMPORT_FULL_01":  usuario2/******** dumpfile=grupal1Ej
+er1.dmp DIRECTORY=direc_expor logfile=impdp.log
+El trabajo "USUARIO2"."SYS_IMPORT_FULL_01" ha terminado correctamente en 18:43:5
+2
+
+- Comprobamos que se ha realizado la importación.
+
+SQL> insert into interpretes values ('124223','RUBEN FERNANDEZ');
+
+1 fila creada.
+
+SQL> insert into interpretes values ('12bgtyhn','Martha Argerich');
+
+1 fila creada.
+
+SQL> select * from interpretes;
+
+ID_INTERPR NOMBRE_INTERPRETE
+---------- --------------------------------------------------
+123456     MAURICE ANDRE
+1er456     CLAUDIO ARRAU
+654tgb     DANIEL BARENBOIM
+543frtyh   YURI BASHMET
+12654f     HEINZ HOLLIGER
+qazwsxedc  VLADIMIR HOROWITZ
+1mkonji    YEHUDI MENUHIN
+1234567    MAURICE ANDRE
+123345     DAVID OISTRAKH
+123321     ITZHAK PERLMAN
+123565     MSTISLAV ROSTROPOVICH
+
+ID_INTERPR NOMBRE_INTERPRETE
+---------- --------------------------------------------------
+123422     Marc-André Hamelin
+1234777    PIERRE RAMPAL
+124223     RUBEN FERNANDEZ
+12bgtyhn   Martha Argerich
+
+15 filas seleccionadas.
+
+SQL>
+
+
