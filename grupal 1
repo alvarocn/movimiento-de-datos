@@ -63,7 +63,7 @@ insert into interpretes values ('12bgtyhn','Martha Argerich');
 - Creamos el directorio de exportación.
 
 SQL> create directory direc_expor as 'C:\app\alvaro\admin\orcl\';
--Damos permiso al usuario sobre el directorio.
+-Damos permiso al usuario sobre el directorio ya que nos saltará un error para acceder al directorio de exportación.
 SQL> GRANT READ, WRITE ON DIRECTORY direc_expor TO reco2;
 SQL> GRANT READ, WRITE ON DIRECTORY direc_expor TO reco2;
 
